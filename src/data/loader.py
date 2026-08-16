@@ -50,6 +50,7 @@ def build_creators_table(con: duckdb.DuckDBPyConnection) -> pd.DataFrame:
     SELECT
         p.podcast_id,
         p.pod_title AS title,
+        p.pod_description,
         p.language,
         p.primary_category AS category,
         e.episodes_in_window,
@@ -61,6 +62,8 @@ def build_creators_table(con: duckdb.DuckDBPyConnection) -> pd.DataFrame:
     JOIN ep_agg e ON p.podcast_id = e.podcast_id
     """
     df = con.execute(query).df()
+    for col in ("first_seen_date", "last_seen_date"):
+        df[col] = pd.to_datetime(df[col]).dt.tz_localize(None)
     logger.info("Joined creators table: %d rows before filtering", len(df))
     return df
 
