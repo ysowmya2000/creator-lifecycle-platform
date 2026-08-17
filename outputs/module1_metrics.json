@@ -1,0 +1,54 @@
+{
+  "km": {
+    "overall_median_survival_days": 27.927060185185184,
+    "logrank_category_p_value": 8.733817520754718e-292
+  },
+  "cox_ph": {
+    "train_c_index": 0.5932107535990451,
+    "test_c_index": 0.5810327395425677,
+    "n_train": 60918,
+    "n_test": 15230,
+    "proportional_hazards_check_ran": true
+  },
+  "xgb": {
+    "val_auc": 0.7305642686823638,
+    "test_auc": 0.7295073072842795,
+    "n_train": 87850,
+    "n_val": 18825,
+    "n_test": 18826,
+    "best_params": {
+      "max_depth": 8,
+      "learning_rate": 0.0605931387556888,
+      "n_estimators": 156,
+      "subsample": 0.6548853121333369,
+      "colsample_bytree": 0.9895967738989201,
+      "min_child_weight": 3
+    }
+  },
+  "window_sweep": [
+    {
+      "window_day": 3,
+      "n_features": 5,
+      "auc": 0.6407451601003226,
+      "n_test": 7108
+    },
+    {
+      "window_day": 7,
+      "n_features": 5,
+      "auc": 0.690709854228335,
+      "n_test": 12514
+    },
+    {
+      "window_day": 14,
+      "n_features": 5,
+      "auc": 0.7296951218028284,
+      "n_test": 25101
+    },
+    {
+      "window_day": 21,
+      "n_features": 5,
+      "auc": 0.7656156162281303,
+      "n_test": 29873
+    }
+  ]
+}

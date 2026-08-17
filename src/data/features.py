@@ -32,9 +32,18 @@ MONETIZATION_KEYWORDS = [
 ]
 
 # Gap/survival thresholds in days, rescaled from CLAUDE.md's 30/60/90 to fit
-# a 61-day observation window.
-LONG_GAP_THRESHOLD_DAYS = 7
-DORMANCY_THRESHOLDS_DAYS = (7, 14, 21)
+# a 61-day observation window. LONG_GAP_THRESHOLD_DAYS is set empirically:
+# across all ~896K individual inter-episode gaps in the corpus, the median
+# gap is 5.25 days and the 90th percentile is 14.02 days, with the
+# distribution's knee around there (p80=8.16d, p85=12.12d, p90=14.02d,
+# p95=20.92d). 14 days is therefore the point where a gap stops looking
+# like normal posting-cadence variance and starts looking like a real
+# behavioral change, so it's used as the "long gap" / dormancy floor rather
+# than a naive proportional rescale of the spec's 30-day threshold (which,
+# at 7 days, was tighter than most creators' typical cadence and made
+# nearly every biweekly show register a spurious "event").
+LONG_GAP_THRESHOLD_DAYS = 14
+DORMANCY_THRESHOLDS_DAYS = (14, 21, 30)
 SURVIVAL_CHECKPOINTS_DAYS = (14, 30)
 
 
