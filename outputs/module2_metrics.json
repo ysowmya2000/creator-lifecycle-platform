@@ -1,0 +1,65 @@
+{
+  "did": {
+    "att": -0.4593022357078169,
+    "att_ci_lower": -4.794763217754526,
+    "att_ci_upper": 3.8761587463388922,
+    "att_p_value": 0.8355099395096416,
+    "parallel_trends_p_value": 0.5397390783355609,
+    "n_treated": 770,
+    "n_control": 770
+  },
+  "rd": {
+    "threshold_episodes": 6,
+    "bandwidth": 2,
+    "jump_estimate": 0.006200655219496491,
+    "jump_p_value": 0.5083456708045864,
+    "jump_ci_lower": -0.012173656653633,
+    "jump_ci_upper": 0.02457496709262598,
+    "mccrary_density_ratio": 0.29712411086583274,
+    "placebo_p_value": 0.9393333447701078,
+    "n_window": 42307
+  },
+  "ltv": {
+    "mean_ltv": 27.90399770496106,
+    "median_ltv": 22.96612509071904,
+    "assumed_cpm": 18.0,
+    "assumed_downloads_per_episode": 500,
+    "ltv_by_tier": [
+      {
+        "episode_tier": "Q1 (fewest)",
+        "mean": 4.669899981582712,
+        "median": 0.0,
+        "std": 8.308957374206626,
+        "count": 62924
+      },
+      {
+        "episode_tier": "Q2",
+        "mean": 15.098292806695781,
+        "median": 21.53985257985258,
+        "std": 13.578183863038374,
+        "count": 21904
+      },
+      {
+        "episode_tier": "Q3",
+        "mean": 30.904835186984613,
+        "median": 34.245000000000005,
+        "std": 15.269529041268012,
+        "count": 48356
+      },
+      {
+        "episode_tier": "Q4 (most)",
+        "mean": 72.98287531062581,
+        "median": 53.813571428571436,
+        "std": 84.92211760678454,
+        "count": 35435
+      }
+    ]
+  },
+  "ablation4": {
+    "n_sample": 500,
+    "agreement_rate": 0.996,
+    "full_proxy_positive_rate": 0.062,
+    "description_only_positive_rate": 0.058,
+    "note": "Agreement between two rule-based methods, not accuracy against manual labels (none available)."
+  }
+}

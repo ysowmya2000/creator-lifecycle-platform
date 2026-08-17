@@ -1,0 +1,2 @@
+n_sample,agreement_rate,full_proxy_positive_rate,description_only_positive_rate,note
+500,0.996,0.062,0.058,"Agreement between two rule-based methods, not accuracy against manual labels (none available)."

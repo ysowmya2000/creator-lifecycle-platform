@@ -1,0 +1,14 @@
+artifact_uri: file:///Users/sowmyayerraguntla/Documents/creator-lifecycle-platform/mlruns/642925162692926700/1355092293c94b3a979842380a847ec6/artifacts
+end_time: 1786975045599
+entry_point_name: ''
+experiment_id: '642925162692926700'
+lifecycle_stage: active
+run_id: 1355092293c94b3a979842380a847ec6
+run_name: ablation4_monetization_proxy
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1786975045590
+status: 3
+tags: []
+user_id: sowmyayerraguntla
