@@ -1,0 +1,2 @@
+standard_cox_cindex,competing_risks_cindex,fraction_of_events_that_are_recoveries,interpretation
+0.655281773989916,0.6908598419391933,0.6618333662129282,"Standard Cox treats dormant-then-recovered creators as a 'churn' event identical to true no-recovery cases. 66.2% of all 'exit' events are actually recoveries, so a standard model overstates the departure hazard by conflating the two."

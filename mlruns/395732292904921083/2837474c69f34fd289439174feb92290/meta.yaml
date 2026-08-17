@@ -1,0 +1,14 @@
+artifact_uri: file:///Users/sowmyayerraguntla/Documents/creator-lifecycle-platform/mlruns/395732292904921083/2837474c69f34fd289439174feb92290/artifacts
+end_time: 1786980935802
+entry_point_name: ''
+experiment_id: '395732292904921083'
+lifecycle_stage: active
+run_id: 2837474c69f34fd289439174feb92290
+run_name: ablation2_competing_vs_standard
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1786980908199
+status: 3
+tags: []
+user_id: sowmyayerraguntla

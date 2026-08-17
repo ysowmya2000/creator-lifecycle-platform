@@ -1,0 +1,14 @@
+artifact_uri: file:///Users/sowmyayerraguntla/Documents/creator-lifecycle-platform/mlruns/395732292904921083/702d8633f32c467d8536d195b64b6a37/artifacts
+end_time: 1786980883682
+entry_point_name: ''
+experiment_id: '395732292904921083'
+lifecycle_stage: active
+run_id: 702d8633f32c467d8536d195b64b6a37
+run_name: dormancy_duration
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1786980865076
+status: 3
+tags: []
+user_id: sowmyayerraguntla

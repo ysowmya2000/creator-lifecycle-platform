@@ -1,0 +1,9 @@
+artifact_location: file:///Users/sowmyayerraguntla/Documents/creator-lifecycle-platform/mlruns/395732292904921083
+creation_time: 1786980851874
+effective_trace_archival_retention: null
+experiment_id: '395732292904921083'
+last_update_time: 1786980851874
+lifecycle_stage: active
+name: module3_competing_risks
+trace_location: null
+workspace: default

@@ -1,0 +1,9 @@
+artifact_location: file:///Users/sowmyayerraguntla/Documents/creator-lifecycle-platform/mlruns/815136057294418717
+creation_time: 1786980622817
+effective_trace_archival_retention: null
+experiment_id: '815136057294418717'
+last_update_time: 1786980622817
+lifecycle_stage: active
+name: module1_cold_start
+trace_location: null
+workspace: default

@@ -1,0 +1,14 @@
+artifact_uri: file:///Users/sowmyayerraguntla/Documents/creator-lifecycle-platform/mlruns/815136057294418717/f5df58f1aa0f4bbf9e02c35ac38591a8/artifacts
+end_time: 1786980625817
+entry_point_name: ''
+experiment_id: '815136057294418717'
+lifecycle_stage: active
+run_id: f5df58f1aa0f4bbf9e02c35ac38591a8
+run_name: cox_ph_v1
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1786980623844
+status: 3
+tags: []
+user_id: sowmyayerraguntla

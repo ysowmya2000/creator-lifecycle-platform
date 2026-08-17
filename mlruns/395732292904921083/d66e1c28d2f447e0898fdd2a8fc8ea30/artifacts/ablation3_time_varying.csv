@@ -1,0 +1,2 @@
+time_varying_log_likelihood,time_varying_concordance,fixed_baseline_concordance,n_intervals,n_creators_train,n_creators_test
+-385.59475870567036,0.5078957032684539,0.5101660822666502,155849,24000,6000

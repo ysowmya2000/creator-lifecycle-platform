@@ -1,0 +1,44 @@
+{
+  "cif": {
+    "recovery_rate_monetized": 0.7211438474870018,
+    "recovery_rate_not_monetized": 0.6588802788947759,
+    "n_ever_quiet": 121656,
+    "n_recovered": 80516,
+    "n_no_recovery": 41140,
+    "n_censored": 46963
+  },
+  "time_varying": {
+    "time_varying_log_likelihood": -385.59475870567036,
+    "time_varying_concordance": 0.5078957032684539,
+    "fixed_baseline_concordance": 0.5101660822666502,
+    "n_intervals": 155849,
+    "n_creators_train": 24000,
+    "n_creators_test": 6000
+  },
+  "dormancy_duration": {
+    "test_mae_days": 4.868430507518989,
+    "n_samples": 41736,
+    "best_params": {
+      "num_leaves": 50,
+      "learning_rate": 0.010436791964337106,
+      "n_estimators": 56,
+      "min_child_samples": 34
+    }
+  },
+  "action_matrix": {
+    "dormancy_prob_auc": 0.6009184891415777,
+    "departure_prob_auc": 0.6790791251072157,
+    "action_distribution": {
+      "monitor": 0.787592145606367,
+      "gentle nudge": 0.15468007757132946,
+      "aggressive re-engagement": 0.031075976016937592,
+      "write off": 0.026651800805365944
+    }
+  },
+  "ablation2": {
+    "standard_cox_cindex": 0.655281773989916,
+    "competing_risks_cindex": 0.6908598419391933,
+    "fraction_of_events_that_are_recoveries": 0.6618333662129282,
+    "interpretation": "Standard Cox treats dormant-then-recovered creators as a 'churn' event identical to true no-recovery cases. 66.2% of all 'exit' events are actually recoveries, so a standard model overstates the departure hazard by conflating the two."
+  }
+}

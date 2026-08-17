@@ -4,7 +4,7 @@ Dep. Variable:           eps_per_week   R-squared:                       0.059
 Model:                            OLS   Adj. R-squared:                  0.045
 Method:                 Least Squares   F-statistic:                     7.950
 Date:                Mon, 17 Aug 2026   Prob (F-statistic):           3.58e-45
-Time:                        09:57:10   Log-Likelihood:                -14896.
+Time:                        11:33:39   Log-Likelihood:                -14896.
 No. Observations:                3080   AIC:                         2.988e+04
 Df Residuals:                    3036   BIC:                         3.015e+04
 Df Model:                          43                                         

@@ -1,0 +1,14 @@
+artifact_uri: file:///Users/sowmyayerraguntla/Documents/creator-lifecycle-platform/mlruns/395732292904921083/47e7b56087b9409faaf8d3d81cba2817/artifacts
+end_time: 1786980862535
+entry_point_name: ''
+experiment_id: '395732292904921083'
+lifecycle_stage: active
+run_id: 47e7b56087b9409faaf8d3d81cba2817
+run_name: cif_analysis
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1786980851977
+status: 3
+tags: []
+user_id: sowmyayerraguntla
