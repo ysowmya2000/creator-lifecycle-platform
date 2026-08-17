@@ -1,0 +1,10 @@
+artifact_location: file:///Users/sowmyayerraguntla/Documents/creator-lifecycle-platform/mlruns/285614444611476724/models/m-4be2742e2ac148c5a1bb4c51f03cffdd/artifacts
+creation_timestamp: 1786932683956
+experiment_id: '285614444611476724'
+last_updated_timestamp: 1786932686747
+model_id: m-4be2742e2ac148c5a1bb4c51f03cffdd
+model_type: null
+name: xgb_early_warning
+source_run_id: bd444c2fa18c4a9594c73fd9c9ad4210
+status: 2
+status_message: null

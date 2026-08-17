@@ -93,6 +93,24 @@ def add_early_window_features(df: pd.DataFrame, n_days: int) -> pd.DataFrame:
         df["has_monetization_signal"].fillna(0).astype(int)
         & (df["monetization_timing_days"].fillna(999) <= n_days).astype(int)
     )
+    # acceleration: ratio of posting rate in the second half of the window
+    # to the first half — captures whether a creator is speeding up or
+    # slowing down, not just their average pace.
+    half = max(n_days // 2, 1)
+    first_half_count = df.apply(
+        lambda r: int((pd.to_datetime(r["episode_dates"]) <= pd.Timestamp(r["first_seen_date"]) + pd.Timedelta(days=half)).sum()),
+        axis=1,
+    )
+    df[f"{prefix}accel{suffix}"] = (df[f"{prefix}episode_count{suffix}"] - first_half_count) - first_half_count
+    return df
+
+
+TOP_CATEGORIES_FOR_MODELING = None  # set in main(), used by both Cox and XGBoost
+
+
+def add_category_feature(df: pd.DataFrame, top_categories: list[str]) -> pd.DataFrame:
+    df = df.copy()
+    df["category_grouped"] = df["category"].where(df["category"].isin(top_categories), "other")
     return df
 
 
@@ -159,13 +177,19 @@ COX_WINDOW_DAYS = 14
 COX_FEATURES = [
     "early_posting_freq_mean_14d", "early_posting_freq_std_14d",
     "early_consistency_14d", "early_cadence_variance_ratio_14d",
-    "early_episode_count_14d", "early_has_monetization_14d",
+    "early_episode_count_14d", "early_has_monetization_14d", "early_accel_14d",
 ]
 
 
 def run_cox_ph(df: pd.DataFrame) -> tuple[CoxPHFitter, dict]:
-    """df must already have add_early_window_features(df, 14) applied."""
-    cols = COX_FEATURES + ["time_to_first_long_gap", "event_occurred"]
+    """df must already have add_early_window_features(df, 14) and
+    add_category_feature applied. Stratifies on category_grouped rather
+    than including it as a linear covariate: the KM analysis found category
+    is a highly significant driver of survival (logrank p<1e-290), and
+    several continuous covariates fail the proportional-hazards test, so a
+    per-category baseline hazard is a more honest fit than forcing one
+    global hazard shape across very different content categories."""
+    cols = COX_FEATURES + ["category_grouped", "time_to_first_long_gap", "event_occurred"]
     cox_df = df[cols].dropna()
 
     # Landmark analysis at day 14: covariates must be measured strictly
@@ -183,7 +207,7 @@ def run_cox_ph(df: pd.DataFrame) -> tuple[CoxPHFitter, dict]:
     train_df, test_df = train_test_split(cox_df, test_size=0.2, random_state=42)
 
     cph = CoxPHFitter(penalizer=0.1)
-    cph.fit(train_df, duration_col="duration_since_landmark", event_col="event_occurred")
+    cph.fit(train_df, duration_col="duration_since_landmark", event_col="event_occurred", strata=["category_grouped"])
 
     train_cindex = cph.concordance_index_
     test_cindex = cph.score(test_df, scoring_method="concordance_index")
@@ -219,14 +243,19 @@ def run_cox_ph(df: pd.DataFrame) -> tuple[CoxPHFitter, dict]:
 DAY14_FEATURES = [
     "early_episode_count_14d", "early_posting_freq_mean_14d",
     "early_posting_freq_std_14d", "early_multi_post_14d",
-    "early_consistency_14d",
+    "early_consistency_14d", "early_accel_14d", "category_grouped",
 ]
 
 
 def run_xgb_classifier(df: pd.DataFrame) -> tuple[xgb.XGBClassifier, dict, pd.DataFrame]:
-    """df must already have add_early_window_features(df, 14) applied."""
+    """df must already have add_early_window_features(df, 14) and
+    add_category_feature applied. category_grouped is included as a native
+    XGBoost categorical feature — the KM analysis found category is a
+    strong, immediately-known (day-0) survival signal that the day-14
+    model was otherwise missing."""
     cols = DAY14_FEATURES + [XGB_TARGET]
-    xgb_df = df[cols].dropna()
+    xgb_df = df[cols].dropna().copy()
+    xgb_df["category_grouped"] = xgb_df["category_grouped"].astype("category")
     X, y = xgb_df[DAY14_FEATURES], xgb_df[XGB_TARGET]
 
     X_train, X_temp, y_train, y_temp = train_test_split(X, y, test_size=0.3, stratify=y, random_state=42)
@@ -242,7 +271,7 @@ def run_xgb_classifier(df: pd.DataFrame) -> tuple[xgb.XGBClassifier, dict, pd.Da
             "min_child_weight": trial.suggest_int("min_child_weight", 1, 10),
             "eval_metric": "auc",
         }
-        model = xgb.XGBClassifier(**params, random_state=42)
+        model = xgb.XGBClassifier(**params, random_state=42, enable_categorical=True)
         model.fit(X_train, y_train)
         preds = model.predict_proba(X_val)[:, 1]
         return roc_auc_score(y_val, preds)
@@ -251,7 +280,7 @@ def run_xgb_classifier(df: pd.DataFrame) -> tuple[xgb.XGBClassifier, dict, pd.Da
     study.optimize(objective, n_trials=50, show_progress_bar=False)
 
     best_params = study.best_params
-    final_model = xgb.XGBClassifier(**best_params, eval_metric="auc", random_state=42)
+    final_model = xgb.XGBClassifier(**best_params, eval_metric="auc", random_state=42, enable_categorical=True)
     final_model.fit(pd.concat([X_train, X_val]), pd.concat([y_train, y_val]))
 
     test_preds = final_model.predict_proba(X_test)[:, 1]
@@ -328,6 +357,8 @@ def main() -> None:
 
     for n in WINDOW_SWEEP_DAYS:
         df = add_early_window_features(df, n)
+    top_categories = df["category"].value_counts().head(TOP_N_CATEGORIES).index.tolist()
+    df = add_category_feature(df, top_categories)
     logger.info("Computed early-window (pre-cutoff-only) features for days %s", WINDOW_SWEEP_DAYS)
 
     with tracked_run("module1", "km_analysis"):

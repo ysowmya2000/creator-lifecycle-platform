@@ -4,25 +4,25 @@
     "logrank_category_p_value": 8.733817520754718e-292
   },
   "cox_ph": {
-    "train_c_index": 0.5932107535990451,
-    "test_c_index": 0.5810327395425677,
+    "train_c_index": 0.5960103921404748,
+    "test_c_index": 0.5824331782406438,
     "n_train": 60918,
     "n_test": 15230,
     "proportional_hazards_check_ran": true
   },
   "xgb": {
-    "val_auc": 0.7305642686823638,
-    "test_auc": 0.7295073072842795,
+    "val_auc": 0.736474197907939,
+    "test_auc": 0.7363608376900685,
     "n_train": 87850,
     "n_val": 18825,
     "n_test": 18826,
     "best_params": {
-      "max_depth": 8,
-      "learning_rate": 0.0605931387556888,
-      "n_estimators": 156,
-      "subsample": 0.6548853121333369,
-      "colsample_bytree": 0.9895967738989201,
-      "min_child_weight": 3
+      "max_depth": 5,
+      "learning_rate": 0.06870322758611119,
+      "n_estimators": 322,
+      "subsample": 0.829325799729498,
+      "colsample_bytree": 0.7839842208223635,
+      "min_child_weight": 9
     }
   },
   "window_sweep": [
